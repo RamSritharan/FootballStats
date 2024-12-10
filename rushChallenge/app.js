@@ -23,6 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/players", playersRouter);
+app.get("/players/downloadCSV", playersRouter);
+
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
