@@ -1,0 +1,21 @@
+version: "1.0"
+
+services:
+  thescoreserv:
+    build:
+      context: ./rushChallenge
+    image: thescoreserv
+
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+
+    ports:
+      - 3000:3000
+
+  thescoreUI:
+    build:
+      context: ./rush-challengeUI
+    image: thescoreui
+
+    ports:
+      - 8080:3001

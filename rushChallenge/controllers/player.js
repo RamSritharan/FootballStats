@@ -7,15 +7,35 @@ async function index(req, res) {
   try {
     let field = req.query.sortedValue || "Team";
     let filteredPlayer = {};
-    let order = req.query.order || "desc";
+    let order = req.query.direction ? req.query.direction : "desc";
 
     if (req.query.player != null) {
       filteredPlayer = { Player: [req.query.player] };
     }
+    const sortOrder = order === "asc" ? 1 : -1;
 
-    let players = await Player.find(filteredPlayer).sort({
-      [field]: order,
-    });
+    // let players = await Player.find(filteredPlayer)
+    //   .sort({
+    //     [field]: order,
+    //   })
+    //   .lean();
+    const players = await Player.aggregate([
+      {
+        $addFields: {
+          numericField: {
+            $convert: {
+              input: `$${field}`,
+              to: "double",
+              onError: null, // Handle non-numeric values
+              onNull: null, // Handle missing fields
+            },
+          },
+        },
+      },
+      {
+        $sort: { numericField: sortOrder }, // Sort by the converted numeric field
+      },
+    ]);
 
     cache = players;
     res.status(200).json(players);
@@ -51,7 +71,7 @@ async function downloadCSV(req, res) {
   const csv = json2csvParser.parse(players);
 
   res.header("Content-Type", "text/csv");
-  res.attachment("players.csv");
+  res.set("Content-Disposition", `attachment; filename="players.csv"`);
   res.send(csv);
 }
 

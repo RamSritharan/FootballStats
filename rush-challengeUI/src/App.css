@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
-  background-color: black;
-}
+/* styles.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Logo styling */
+.logo {
+  width: 1cm; /* Set width for consistency */
+  height: 1cm; /* Set height for consistency */
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.logo img {
+  width: 100%; /* Make image fill the logo container */
+  height: 100%; /* Make image fill the logo container */
+  object-fit: contain; /* Ensure the image scales proportionally */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Title styling */
+.title {
+  font-size: 72px; /* Adjust font size as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flexbox;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.spreadsheet-container {
+  width: 80%;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table.spreadsheet {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.spreadsheet th,
+table.spreadsheet td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 12px;
+}
+
+table.spreadsheet th {
+  background-color: #cb1c3c;
+  color: white;
+  text-transform: uppercase;
+}
+
+table.spreadsheet tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table.spreadsheet tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+table.spreadsheet td {
+  font-size: 14px;
+  color: #333;
 }
