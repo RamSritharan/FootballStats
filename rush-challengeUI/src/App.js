@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import image from ".//image.png";
 
 import "./App.css";
@@ -10,8 +9,10 @@ function App() {
   const [order, setOrder] = useState(["desc"]);
   const [playerSearch, setPlayerSearch] = useState([]);
 
-  const baseURL = "http://localhost:3000/players";
-  const downloadURL = "http://localhost:3000/players/downloadCSV";
+  const port = process.env.REACT_APP_PORT || 8080;
+
+  const baseURL = `http://localhost:${port}/players`;
+  const downloadURL = `${baseURL}/downloadCSV`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +42,7 @@ function App() {
       const response = await fetch(`${baseURL}?${queryString}`);
       const data = await response.json();
       setPlayers(data);
-      setOrder(order == "asc" ? "desc" : "asc");
+      setOrder(order === "asc" ? "desc" : "asc");
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +69,7 @@ function App() {
       const data = await response.json();
 
       setPlayers(data);
-      setOrder(order == "asc" ? "desc" : "asc");
+      setOrder(order === "asc" ? "desc" : "asc");
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +79,7 @@ function App() {
     <>
       <div>
         <div className="container">
-          <img src={image} onClick={baseURL} className="logo" />
+          <img src={image} className="logo" alt="" />
           <div className="title">NFL Rushing Challenge</div>
         </div>
         <div>
@@ -88,7 +89,7 @@ function App() {
             placeholder="Search Player"
           />
           <button onClick={findPlayer}>Search</button>
-          <a href="http://localhost:3000/players/downloadCSV">Download CSV</a>
+          <a href={downloadURL}>Download CSV</a>
         </div>
         <table className="spreadsheet">
           <thead>

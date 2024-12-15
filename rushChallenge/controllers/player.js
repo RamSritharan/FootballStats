@@ -14,11 +14,6 @@ async function index(req, res) {
     }
     const sortOrder = order === "asc" ? 1 : -1;
 
-    // let players = await Player.find(filteredPlayer)
-    //   .sort({
-    //     [field]: order,
-    //   })
-    //   .lean();
     const players = await Player.aggregate([
       {
         $addFields: {

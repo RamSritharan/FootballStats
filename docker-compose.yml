@@ -2,20 +2,32 @@ version: "1.0"
 
 services:
   thescoreserv:
+    image: thescoreserv
     build:
       context: ./rushChallenge
-    image: thescoreserv
+      dockerfile: Dockerfile
+
+    env_file:
+      - ./.env
+
+    ports:
+      - 8080:8080
+
+  thescoreUI:
+    image: thescoreui
+
+    build:
+      context: ./rush-challengeUI
+      dockerfile: Dockerfile
+
+    env_file:
+      - ./.env
 
     environment:
-      - DATABASE_URL=${DATABASE_URL}
+      - REACT_APP_PORT=${REACT_APP_PORT}
 
     ports:
       - 3000:3000
 
-  thescoreUI:
-    build:
-      context: ./rush-challengeUI
-    image: thescoreui
-
-    ports:
-      - 8080:3001
+    depends_on:
+      - thescoreserv
