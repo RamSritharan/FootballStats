@@ -79,7 +79,7 @@ This will run all the server, ui and mongodb + seed (for mongo data) in separate
 First you will want to be in the server folder
 
 ```bash
-cd server
+cd rushChallenge
 ```
 
 Then you will want to run the an npm install
