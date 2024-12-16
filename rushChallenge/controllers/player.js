@@ -14,23 +14,9 @@ async function index(req, res) {
     }
     const sortOrder = order === "asc" ? 1 : -1;
 
-    const players = await Player.aggregate([
-      {
-        $addFields: {
-          numericField: {
-            $convert: {
-              input: `$${field}`,
-              to: "double",
-              onError: null, // Handle non-numeric values
-              onNull: null, // Handle missing fields
-            },
-          },
-        },
-      },
-      {
-        $sort: { numericField: sortOrder }, // Sort by the converted numeric field
-      },
-    ]);
+    let players = await Player.find(filteredPlayer).sort({
+      [field]: sortOrder,
+    });
 
     cache = players;
     res.status(200).json(players);
